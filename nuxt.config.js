@@ -1,12 +1,11 @@
-export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+require('dotenv').config()
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
+export default {
+  // グローバルなページヘッダー
   head: {
     title: 'talkfriend',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
@@ -17,13 +16,13 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
+  // グローバルなCSS
   css: [],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  // プラグイン
   plugins: [],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
+  // 自動インポートされるコンポーネント
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -34,18 +33,34 @@ export default {
     '@nuxtjs/tailwindcss',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
+  // モジュール
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  // モジュールの設定
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
+  // ビルド設定
   build: {},
+
+  // サーバーミドルウェア
+  serverMiddleware: [
+    { path: '/api/env', handler: '~/server-middleware/env.ts' },
+  ],
+
+  // 環境変数
+  env: {
+    apiKey: process.env.API_KEY
+  },
+  
+  // レンダリングモード
+  ssr: false, // サーバーサイドレンダリングを無効にする
+
+  // 開発モードの設定
+  dev: process.env.NODE_ENV !== 'production',
 }
